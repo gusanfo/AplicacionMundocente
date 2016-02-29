@@ -2,6 +2,7 @@
 
 use App\Revista as Revista;
 use App\Http\Requests;
+use App\Http\Requests\CreateRevistRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class RevistaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(Requests\CreateRevistRequest $request)
 	{
 
 		$revista = new Revista;

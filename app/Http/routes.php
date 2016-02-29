@@ -11,14 +11,13 @@
 |
 */
 
-/*Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('', 'HomeController@index');
 
 Route::controllers([
-	'revista' => 'RevistaController',
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
-]);*/
+]);
 Route::resource('revistas','RevistaController');
 

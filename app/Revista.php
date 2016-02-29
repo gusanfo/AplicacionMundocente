@@ -2,23 +2,26 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Revista extends Model {
+class Revista extends Model
+{
 
-/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'revistas';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'revistas';
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	 protected $fillable=[        
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'universidad',
         'nombre',
-        'enlace'        
+        'fecha_limite',
+        'enlace'
     ];
 
 }

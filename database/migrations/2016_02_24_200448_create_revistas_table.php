@@ -9,14 +9,17 @@ class CreateRevistasTable extends Migration {
 	 * Run the migrations.
 	 *
 	 * @return void
+	 *   		$table->enum('type',['empresa','particular'])->default('particular');
 	 */
 	public function up()
 	{
 		Schema::create('revistas', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('nombre');
-			$table->string('enlace');
+			$table->string('universidad')->required();
+			$table->string('nombre')->required();
+			$table->dateTime('fecha_limite')->required();
+			$table->string('enlace')->required();
 			$table->timestamps();
 		});
 	}

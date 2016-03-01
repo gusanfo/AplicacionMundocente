@@ -1,27 +1,20 @@
 <?php namespace App\Http\Controllers;
 
-use App\Revista as Revista;
 use App\Http\Requests;
-use App\Http\Requests\CreateRevistRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class RevistaController extends Controller {
+class ConvocatoriaController extends Controller {
 
-	
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-
-	public function index(Request $request)
+	public function index()
 	{
-		$revistas = Revista::all();
-
-		//$revistas = Revista::nombre($request->get('nombre'));
-        return view('revistas.index',compact('revistas'));
+		//
 	}
 
 	/**
@@ -31,7 +24,7 @@ class RevistaController extends Controller {
 	 */
 	public function create()
 	{
-		return view('revistas.create');
+		//
 	}
 
 	/**
@@ -39,13 +32,9 @@ class RevistaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Requests\CreateRevistRequest $request)
+	public function store()
 	{
-
-		$revista = new Revista;
-		$revista->create($request->all());
-		
-   		return redirect()->route('revistas.index');
+		//
 	}
 
 	/**

@@ -24,4 +24,8 @@ class Revista extends Model
         'enlace'
     ];
 
+    public function scopeNombre($query,$nombre)
+    {
+        $query->where('nombre',$nombre);
+    }
 }

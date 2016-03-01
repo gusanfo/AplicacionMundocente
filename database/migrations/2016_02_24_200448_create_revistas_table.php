@@ -16,10 +16,10 @@ class CreateRevistasTable extends Migration {
 		Schema::create('revistas', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('universidad')->required();
-			$table->string('nombre')->required();
-			$table->dateTime('fecha_limite')->required();
-			$table->string('enlace')->required();
+			$table->string('universidad');
+			$table->string('nombre');
+			$table->dateTime('fecha_limite');
+			$table->string('enlace');
 			$table->timestamps();
 		});
 	}

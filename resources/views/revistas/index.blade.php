@@ -9,7 +9,15 @@
                     <div class="panel-body">
 
                         <a href="{{url('/revistas/create')}}" class="btn btn-success">CREAR</a>
+                        {!! Form::open(['route' => 'revistas.index', 'method'=>'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
+
+                        <div class="form-group">
+                            {!! Form::text('nombre ',null,['class'=>'form-control', 'placeholder'=>'Search'])  !!}
+                        </div>
+                        <button type="submit" class="btn btn-default">Buscar</button>
+                        {!!Form::close()!!}
                         <hr>
+
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr class="bg-info">

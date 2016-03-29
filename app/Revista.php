@@ -18,14 +18,31 @@ class Revista extends Model
      * @var array
      */
     protected $fillable = [
+
+        'departamento',
+        'ciudad',
         'universidad',
-        'nombre',
-        'fecha_limite',
-        'enlace'
+        'titulo',
+        'tipoRevista',
+        'categoria',
+        'fechaRecepcion',
+        'enlace',
+        'areas'
     ];
 
-    public function scopeNombre($query,$nombre)
+
+    public static function filterAndPaginate($name)
     {
-        $query->where('nombre',$nombre);
+        return Revista::areas($name)
+            ->orderBy('id', 'DESC')
+            ->paginate(5);
     }
+
+    public function scopeAreas($query,$areas)
+    {
+        if(trim($areas) != ""){
+            $query->where("areas",'LIKE',"%$areas%");
+        }
+    }
+
 }

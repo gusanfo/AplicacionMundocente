@@ -2,26 +2,24 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Convocatoria extends Model {
+class EventoAcademico extends Model {
 
-    protected $table = 'convocatorias';
+
+    protected $table = 'eventos_academicos';
 
     protected $fillable = [
-
         'departamento',
         'ciudad',
         'universidad',
-        'titulo',
         'areas',
-        'fecha_inicio',
-        'fecha_finalizacion',
-        'descripcion',
+        'titulo',
+        'fecha_evento',
         'enlace'
     ];
 
     public static function filterAndPaginate($name)
     {
-        return Convocatoria::areas($name)
+        return EventoAcademico::areas($name)
             ->orderBy('id', 'DESC')
             ->paginate(5);
     }

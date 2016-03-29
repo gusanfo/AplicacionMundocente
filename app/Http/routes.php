@@ -20,4 +20,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 Route::resource('revistas','RevistaController');
+Route::resource('convocatorias','ConvocatoriaController');
+Route::resource('eventoAcademico','EventoAcademicoController');
+
+Route::get('ciudades/{id}','RevistaController@getCiudades');
+//Route::get('ciudades/{id}','ConvocatoriaController@getCiudades');
+//Route::get('ciudades/{id}','EventoAcademicoController@getCiudades');
+
+Route::get('universidades/{id}','RevistaController@getUniversidades');
 

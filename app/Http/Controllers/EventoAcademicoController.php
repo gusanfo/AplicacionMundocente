@@ -1,15 +1,19 @@
 <?php namespace App\Http\Controllers;
 
-use App\Convocatoria as Convocatoria;
+
+use App\EventoAcademico as EventoAcademico;
 use App\Departamento as Departamento;
 use App\Ciudad as Ciudad;
+use App\Universidad as Universidad;
 use App\Area as Area;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class ConvocatoriaController extends Controller {
+
+
+class EventoAcademicoController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,8 +22,9 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-		$convocatorias = Convocatoria::filterAndPaginate($request->get('areas'));
-		return view('convocatorias.index',compact('convocatorias'));
+
+		$eventosAcademicos = EventoAcademico::filterAndPaginate($request->get('areas'));
+		return view('eventoAcademico.index',compact('eventosAcademicos'));
 	}
 
 	/**
@@ -31,8 +36,7 @@ class ConvocatoriaController extends Controller {
 	{
 		$departamentos = Departamento::all();
 		$areas = Area::all();
-		return view('convocatorias.create',compact('departamentos','areas'));
-
+		return view('eventoAcademico.create',compact('departamentos','areas'));
 	}
 
 	public function getCiudades(Request $request,$id)
@@ -48,28 +52,24 @@ class ConvocatoriaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Requests\convocatoriaRequest $request)
+	public function store(Requests\eventoAcademicoRequest $request)
 	{
+		$eventoAcademico = new EventoAcademico;
 
-		$convocatoria = new Convocatoria;
+		$eventoAcademico->departamento =  $request->input('departamento');
+		$eventoAcademico->ciudad =  $request->input('ciudad');
+		$eventoAcademico->universidad =  $request->input('universidad');
+		$eventoAcademico->titulo =  $request->input('titulo');
+		$eventoAcademico->areas =  implode(",",$request->input('areas'));
+		$eventoAcademico->fecha_evento =  $request->input('fecha_evento');
+		$eventoAcademico->enlace = $request->input('enlace');
+		$eventoAcademico->save();
 
-		$convocatoria->departamento =  $request->input('departamento');
-		$convocatoria->ciudad =  $request->input('ciudad');
-		$convocatoria->universidad =  $request->input('universidad');
-		$convocatoria->titulo =  $request->input('titulo');
-		$convocatoria->areas =  implode(",",$request->input('areas'));
-		$convocatoria->fecha_inicio =  $request->input('fecha_inicio');
-		$convocatoria->fecha_finalizacion =  $request->input('fecha_finalizacion');
-		$convocatoria->descripcion = $request->input('descripcion');
-		$convocatoria->enlace = $request->input('enlace');
-		$convocatoria->save();
+		//$eventoAcademico = new EventoAcademico;
+		//$eventoAcademico->create($request->all());
 
-		//$convocatoria = new Convocatoria;
-		//$convocatoria->create($request->all());
-
-		return redirect()->route('convocatorias.index');
+		return redirect()->route('eventoAcademico.index');
 	}
-
 
 	/**
 	 * Display the specified resource.
@@ -79,7 +79,7 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function show($id)
 	{
-
+		//
 	}
 
 	/**

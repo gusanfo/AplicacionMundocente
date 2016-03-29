@@ -14,7 +14,8 @@ class HomeController extends Controller {
 	*/
 
 	/**
-	 * Create a new controller instance.
+	 * Create a new controller in
+	 * stance.
 	 *
 	 * @return void
 	 */

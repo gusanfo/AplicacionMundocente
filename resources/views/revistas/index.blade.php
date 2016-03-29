@@ -12,37 +12,37 @@
                         {!! Form::open(['route' => 'revistas.index', 'method'=>'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
 
                         <div class="form-group">
-                            {!! Form::text('nombre ',null,['class'=>'form-control', 'placeholder'=>'Search'])  !!}
+                            {!! Form::text('areas',null,['class'=>'form-control', 'placeholder'=>'Areas'])  !!}
                         </div>
                         <button type="submit" class="btn btn-default">Buscar</button>
                         {!!Form::close()!!}
                         <hr>
 
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr class="bg-info">
+                        @if($revistas->count())
+                        @foreach ($revistas as $revista)
+                            <div class="panel panel-default">
+                                <div class="panel-heading">{{ $revista->universidad }}</div>
+                                <div class="panel-body">
 
-                                <th>Nombre</th>
-                                <th>Universidad</th>
-                                <th>Fecha</th>
-                                <th>Enlace</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($revistas as $revista)
-                                <tr>
-                                    <td>{{ $revista->universidad }}</td>
-                                    <td>{{ $revista->nombre }}</td>
-                                    <td>{{ $revista->fecha_limite }}</td>
-                                    <td><a href="{{ $revista->enlace }}" target="_blank"
-                                           class="btn btn-info">Visitar</a></td>
+                                    <h2>{{ $revista->titulo }}</h2>
+                                    <h4  class="pull-right">{{ $revista->areas }}</h4>
+                                    <ul class="list-unstyled">
+                                        <li> {{App\Http\Controllers\RevistaController::getNombre($revista->ciudad)}}
+                                        </li>
+                                        <li>{{ $revista->tipoRevista }} {{ " - " }} {{ $revista->categoria}} </li>
+                                        <li>{{date("F j, Y", strtotime($revista->fechaRecepcion ))}}</li>
+                                        <li><a href="{{ $revista->enlace }}" target="_blank"
+                                               class="btn btn-info pull-right">Mas Informacion</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                                </tr>
-                            @endforeach
-
-                            </tbody>
-
-                        </table>
+                        @endforeach
+                        @else
+                            <p> No se han encontrado Resultados </p>
+                        @endif
+                        {!!$revistas->render()!!}
                     </div>
                 </div>
             </div>

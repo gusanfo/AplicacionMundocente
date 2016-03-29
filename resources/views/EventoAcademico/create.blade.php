@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Revistas</div>
+                    <div class="panel-heading">Eventos Academicos</div>
                     <div class="panel-body">
                         @if($errors->any())
                             <div class="alert alert-danger" role="alert">
@@ -18,19 +18,16 @@
                                     @endif
                                 </ul>
                             </div>
-                            <form name="formR" class="form-horizontal" role="form" method="POST"
-                                  action="{{ url('/revistas') }}">
+                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/eventoAcademico') }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Departamento</label>
                                     <div class="col-md-6">
 
-                                        <select name="departamento" class="form-control input-group-sm"
-                                                id="departamento">
+                                        <select name="departamento" class="form-control input-group-sm" id="departamento">
                                             @foreach ($departamentos as $departamento)
-                                                <option value="{{$departamento->id}}"
-                                                        selected="selected">{{$departamento->nombre }}</option>
+                                                <option value="{{$departamento->id}}" selected="selected">{{$departamento->nombre }}</option>
 
                                             @endforeach
                                         </select>
@@ -45,77 +42,51 @@
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Universidad</label>
                                     <div class="col-md-6">
-                                        <select name="universidad" class="form-control input-group-sm" id="universidad">
+
+                                        <select name="universidad" class="form-control input-group-sm" id="universidad" >
+
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Areas</label>
                                     <div class="col-md-6">
 
-                                        <select name="areas[]" class="form-control input-group-sm"
-                                                id="areas" multiple="multiple">
+                                        <select name="areas[]" class="form-control input-group-sm" id="areas"  multiple="multiple">
+                                            <!--<optgroup label="System"> -->
                                             @foreach ($areas as $area)
-                                                <option value="{{$area->nombre }}">{{$area->nombre }}</option>
-                                            @endforeach
+                                                <option value="{{$area->nombre}}">{{$area->nombre }}</option>
+
+                                                @endforeach
+                                                        <!--  </optgroup> -->
                                         </select>
+
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Titulo</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control" name="titulo">
+                                        <input type="text" class="form-control" name="titulo" id="titulo">
                                     </div>
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label class="col-md-4 control-label">Tipo Revista</label>
-                                    <div class="col-lg-6">
-                                        <div class="input-group">
-                                         <span class="input-group-addon">
-                                            <input type="radio" name="tipoRevista" value="Indexada" checked
-                                                   id="tipoRevista">Indexada
-                                          </span>
-
-                                             <span class="input-group-addon">
-                                            <input type="radio" name="tipoRevista" value="No Indexada" id="tipoRevista">No Indexada
-                                          </span>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Categoria</label>
+                                    <label class="col-md-4 control-label">Fecha</label>
                                     <div class="col-md-6">
-                                        <select name="categoria" class="form-control input-group-sm" id="categoria">
-                                            <option value="A">A</option>
-                                            <option value="B">B</option>
-                                            <option value="C">C</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-4 control-label">Fecha Recepcion</label>
-                                    <div class="col-md-6">
-                                        <input type="date" class="form-control" name="fechaRecepcion"
-                                               id="fechaRecepcion">
-
-                                        <!--  <input type="checkbox" name="fechaRecepcion"  value="fechaRecepcion" id="fechaRecepcion">Permanente-->
-
+                                        <input type="date" class="form-control" name="fecha_evento"  id="fecha_evento">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Enlace</label>
                                     <div class="col-md-6">
-                                        <input type="url" class="form-control" name="enlace">
+                                        <input type="url" class="form-control" name="enlace" id="enlace">
                                     </div>
                                 </div>
 
@@ -137,18 +108,12 @@
 
 @stop
 @section('scripts')
-
+    <link href="{{ asset('/js/select2.css') }}" rel="stylesheet">
+    <script src="{{ asset('/js/select2.min.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#areas").select2();
-            $("#departamento").select2({
-                placeholder: "Select a departament"
-            });
-            $("#ciudad").select2({
-                placeholder: "Select a city"
-            });
-            $("#universidad").select2({
-                placeholder: "Select a university"
+        $(document).ready(function(){
+            $("#areas").select2({
+                placeholder: "Select un area"
             });
         });
 

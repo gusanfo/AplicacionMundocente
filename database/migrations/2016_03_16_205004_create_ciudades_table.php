@@ -3,24 +3,21 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRevistasTable extends Migration {
+class CreateCiudadesTable extends Migration {
 
 	/**
 	 * Run the migrations.
 	 *
 	 * @return void
-	 *   		$table->enum('type',['empresa','particular'])->default('particular');
 	 */
 	public function up()
 	{
-		Schema::create('revistas', function(Blueprint $table)
+		Schema::create('ciudades', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('universidad');
 			$table->string('nombre');
-			$table->dateTime('fecha_limite');
-			$table->string('enlace');
-			$table->timestamps();
+			$table->integer('departamento_id')->unsigned();
+			$table->foreign('departamento_id')->references('id')->on('departamentos');
 		});
 	}
 
@@ -31,7 +28,7 @@ class CreateRevistasTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('revistas');
+		Schema::drop('ciudades');
 	}
 
 }

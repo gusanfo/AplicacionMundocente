@@ -18,9 +18,12 @@ class CreateUsersTable extends Migration {
 			$table->string('name');
 			$table->string('email')->unique();
 			$table->string('password', 60);
+<<<<<<< HEAD
 			$table->string('areas', 150);
 			$table->enum('accion',['Buscar','Publicar']);
 			$table->boolean('estado')->default(false);
+=======
+>>>>>>> pb/master
 			$table->rememberToken();
 			$table->timestamps();
 		});

@@ -1,9 +1,12 @@
 <?php namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Convocatoria as Convocatoria;
 use App\Departamento as Departamento;
 use App\Ciudad as Ciudad;
 use App\Area as Area;
+=======
+>>>>>>> pb/master
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,10 +19,16 @@ class ConvocatoriaController extends Controller {
 	 *
 	 * @return Response
 	 */
+<<<<<<< HEAD
 	public function index(Request $request)
 	{
 		$convocatorias = Convocatoria::filterAndPaginate($request->get('areas'));
 		return view('convocatorias.index',compact('convocatorias'));
+=======
+	public function index()
+	{
+		//
+>>>>>>> pb/master
 	}
 
 	/**
@@ -29,6 +38,7 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function create()
 	{
+<<<<<<< HEAD
 		$departamentos = Departamento::all();
 		$areas = Area::all();
 		return view('convocatorias.create',compact('departamentos','areas'));
@@ -43,11 +53,17 @@ class ConvocatoriaController extends Controller {
 		}
 
 	}
+=======
+		//
+	}
+
+>>>>>>> pb/master
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
+<<<<<<< HEAD
 	public function store(Requests\convocatoriaRequest $request)
 	{
 
@@ -71,6 +87,13 @@ class ConvocatoriaController extends Controller {
 	}
 
 
+=======
+	public function store()
+	{
+		//
+	}
+
+>>>>>>> pb/master
 	/**
 	 * Display the specified resource.
 	 *
@@ -79,7 +102,11 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function show($id)
 	{
+<<<<<<< HEAD
 
+=======
+		//
+>>>>>>> pb/master
 	}
 
 	/**

@@ -18,6 +18,7 @@ class Revista extends Model
      * @var array
      */
     protected $fillable = [
+<<<<<<< HEAD
 
         'departamento',
         'ciudad',
@@ -45,4 +46,16 @@ class Revista extends Model
         }
     }
 
+=======
+        'universidad',
+        'nombre',
+        'fecha_limite',
+        'enlace'
+    ];
+
+    public function scopeNombre($query,$nombre)
+    {
+        $query->where('nombre',$nombre);
+    }
+>>>>>>> pb/master
 }

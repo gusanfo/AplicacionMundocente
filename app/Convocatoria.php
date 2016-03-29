@@ -4,6 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Convocatoria extends Model {
 
+<<<<<<< HEAD
     protected $table = 'convocatorias';
 
     protected $fillable = [
@@ -32,4 +33,17 @@ class Convocatoria extends Model {
             $query->where("areas",'LIKE',"%$areas%");
         }
     }
+=======
+    protected $table = 'convocatoria';
+
+    protected $fillable = [
+        'universidad',
+        'nombre',
+        'cargo',
+        'fecha_inicio',
+        'fecha_finalizacion',
+        'enlace'
+    ];
+
+>>>>>>> pb/master
 }

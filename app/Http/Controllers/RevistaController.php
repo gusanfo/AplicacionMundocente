@@ -1,16 +1,24 @@
 <?php namespace App\Http\Controllers;
 
 use App\Revista as Revista;
+<<<<<<< HEAD
 use App\Departamento as Departamento;
 use App\Ciudad as Ciudad;
 use App\Universidad as Universidad;
 use App\Area as Area;
 use App\Http\Requests;
+=======
+use App\Http\Requests;
+use App\Http\Requests\CreateRevistRequest;
+>>>>>>> pb/master
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> pb/master
 class RevistaController extends Controller {
 
 	
@@ -19,6 +27,7 @@ class RevistaController extends Controller {
 	 *
 	 * @return Response
 	 */
+<<<<<<< HEAD
 	public static function getNombre($ciudad)
 	{
 		$result = \DB::table('ciudades')->where('id', $ciudad)->pluck('nombre');
@@ -40,6 +49,15 @@ class RevistaController extends Controller {
 		$revistas = Revista::filterAndPaginate($request->get('areas'));
 		// $revistas = Revista::ciudad($request->get('id'));
 		return view('revistas.index',compact('revistas'));
+=======
+
+	public function index(Request $request)
+	{
+		$revistas = Revista::all();
+
+		//$revistas = Revista::nombre($request->get('nombre'));
+        return view('revistas.index',compact('revistas'));
+>>>>>>> pb/master
 	}
 
 	/**
@@ -49,6 +67,7 @@ class RevistaController extends Controller {
 	 */
 	public function create()
 	{
+<<<<<<< HEAD
 		$departamentos = Departamento::all();
 		$areas = Area::all();
 		return view('revistas.create',compact('departamentos','areas'));
@@ -71,11 +90,17 @@ class RevistaController extends Controller {
 		}
 
 	}
+=======
+		return view('revistas.create');
+	}
+
+>>>>>>> pb/master
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
+<<<<<<< HEAD
 	public function store(Requests\RevistaRequest $request)
 	{
 
@@ -95,6 +120,13 @@ class RevistaController extends Controller {
 
 		//	$revista = new Revista;
 		//	$revista->create($request->all());
+=======
+	public function store(Requests\CreateRevistRequest $request)
+	{
+
+		$revista = new Revista;
+		$revista->create($request->all());
+>>>>>>> pb/master
 		
    		return redirect()->route('revistas.index');
 	}

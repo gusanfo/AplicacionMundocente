@@ -136,7 +136,10 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
+<<<<<<< HEAD
 		//'Collective\Html\HtmlServiceProvider',
+=======
+>>>>>>> pb/master
 
 		/*
 		 * Application Service Providers...
@@ -147,8 +150,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> pb/master
 	],
 
 	/*
@@ -198,8 +204,11 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'     => 'Illuminate\Html\FormFacade',
 		'Html'     => 'Illuminate\Html\HtmlFacade',
+<<<<<<< HEAD
 		//'Form' => 'Collective\Html\FormFacade',
 		//'Html' => 'Collective\Html\HtmlFacade',
+=======
+>>>>>>> pb/master
 
 	],
 

@@ -12,12 +12,17 @@
                         {!! Form::open(['route' => 'revistas.index', 'method'=>'GET', 'class'=>'navbar-form navbar-left pull-right','role'=>'search']) !!}
 
                         <div class="form-group">
+<<<<<<< HEAD
                             {!! Form::text('areas',null,['class'=>'form-control', 'placeholder'=>'Areas'])  !!}
+=======
+                            {!! Form::text('nombre ',null,['class'=>'form-control', 'placeholder'=>'Search'])  !!}
+>>>>>>> pb/master
                         </div>
                         <button type="submit" class="btn btn-default">Buscar</button>
                         {!!Form::close()!!}
                         <hr>
 
+<<<<<<< HEAD
                         @if($revistas->count())
                         @foreach ($revistas as $revista)
                             <div class="panel panel-default">
@@ -43,6 +48,33 @@
                             <p> No se han encontrado Resultados </p>
                         @endif
                         {!!$revistas->render()!!}
+=======
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr class="bg-info">
+
+                                <th>Nombre</th>
+                                <th>Universidad</th>
+                                <th>Fecha</th>
+                                <th>Enlace</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach ($revistas as $revista)
+                                <tr>
+                                    <td>{{ $revista->universidad }}</td>
+                                    <td>{{ $revista->nombre }}</td>
+                                    <td>{{ $revista->fecha_limite }}</td>
+                                    <td><a href="{{ $revista->enlace }}" target="_blank"
+                                           class="btn btn-info">Visitar</a></td>
+
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+
+                        </table>
+>>>>>>> pb/master
                     </div>
                 </div>
             </div>

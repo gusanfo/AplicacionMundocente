@@ -6,7 +6,10 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
+<<<<<<< HEAD
 		"laravelcollective/html": "~5.0",
+=======
+>>>>>>> pb/master
 		"illuminate/html": "^5.0"
 	},
 	"require-dev": {

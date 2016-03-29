@@ -15,6 +15,7 @@ class CreateConvocatoriasTable extends Migration {
 		Schema::create('convocatorias', function(Blueprint $table)
 		{
 			$table->increments('id');
+<<<<<<< HEAD
 			$table->string('departamento',80);
 			$table->string('ciudad',60);
 			$table->string('universidad',120);
@@ -26,6 +27,15 @@ class CreateConvocatoriasTable extends Migration {
 			$table->string('enlace',170);
 			$table->timestamps();
 
+=======
+			$table->string('nombre',30);
+			$table->string('universidad',30);
+			$table->string('cargo',30);
+			$table->date('fecha_inicio');
+			$table->date('fecha_finalizacion');
+			$table->string('enlace',50);
+			$table->timestamps();
+>>>>>>> pb/master
 		});
 	}
 

@@ -18,6 +18,7 @@
                                     @endif
                                 </ul>
                             </div>
+<<<<<<< HEAD
                             <form name="formR" class="form-horizontal" role="form" method="POST"
                                   action="{{ url('/revistas') }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -50,10 +51,27 @@
                                     <div class="col-md-6">
                                         <select name="universidad" class="form-control input-group-sm" id="universidad">
                                         </select>
+=======
+                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/revistas') }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">University</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="universidad">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-md-4 control-label">Name</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" name="nombre">
+>>>>>>> pb/master
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+<<<<<<< HEAD
                                     <label class="col-md-4 control-label">Areas</label>
                                     <div class="col-md-6">
 
@@ -114,6 +132,16 @@
 
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Enlace</label>
+=======
+                                    <label class="col-md-4 control-label">Limit Date</label>
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" name="fecha_limite">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Link</label>
+>>>>>>> pb/master
                                     <div class="col-md-6">
                                         <input type="url" class="form-control" name="enlace">
                                     </div>
@@ -122,7 +150,11 @@
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
                                         <button type="submit" class="btn btn-primary">
+<<<<<<< HEAD
                                             Publicar
+=======
+                                            Register
+>>>>>>> pb/master
                                         </button>
                                     </div>
                                 </div>
@@ -135,6 +167,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 @stop
 @section('scripts')
 
@@ -154,3 +187,6 @@
 
     </script>
 @endsection
+=======
+@stop
+>>>>>>> pb/master

@@ -1,0 +1,8 @@
+[28-Apr-2016 15:10:00 America/Bogota] PHP Parse error:  syntax error, unexpected 'NAMES' (T_STRING) in /home/virtualt/public_html/grupo5/index.php on line 24
+[28-Apr-2016 15:10:06 America/Bogota] PHP Parse error:  syntax error, unexpected 'NAMES' (T_STRING) in /home/virtualt/public_html/grupo5/index.php on line 24
+[28-Apr-2016 15:11:32 America/Bogota] PHP Parse error:  syntax error, unexpected 'NAMES' (T_STRING) in /home/virtualt/public_html/grupo5/index.php on line 24
+[28-Apr-2016 15:11:51 America/Bogota] PHP Parse error:  syntax error, unexpected 'NAMES' (T_STRING) in /home/virtualt/public_html/grupo5/index.php on line 24
+[28-Apr-2016 15:18:57 America/Bogota] PHP Warning:  require(/home/virtualt/public_html/grupo5/../bootstrap/autoload.php): failed to open stream: No such file or directory in /home/virtualt/public_html/grupo5/index.php on line 21
+[28-Apr-2016 15:18:57 America/Bogota] PHP Fatal error:  require(): Failed opening required '/home/virtualt/public_html/grupo5/../bootstrap/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/virtualt/public_html/grupo5/index.php on line 21
+[28-Apr-2016 15:19:58 America/Bogota] PHP Warning:  require(/home/virtualt/public_html/grupo5/../bootstrap/autoload.php): failed to open stream: No such file or directory in /home/virtualt/public_html/grupo5/index.php on line 21
+[28-Apr-2016 15:19:58 America/Bogota] PHP Fatal error:  require(): Failed opening required '/home/virtualt/public_html/grupo5/../bootstrap/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/virtualt/public_html/grupo5/index.php on line 21

@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class eventoAcademicoRequest extends Request {
+class userRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,13 +22,11 @@ class eventoAcademicoRequest extends Request {
 	public function rules()
 	{
 		return [
-			
-			'ciudad' => 'required',
-			'areas' => 'required',
-			'titulo' => 'required|between:4,60',
-			'fecha_inicio' => 'required|date_format:Y-m-d|after:yesterday',
-			'fecha_fin' => 'required|date_format:Y-m-d|after:yesterday',
-			'enlace' => 'required|url'
+			'name' => 'required|max:50',
+			'email' => 'required|email|max:100|unique:users',
+			'password' => 'required|confirmed|min:6',
+			'telefono' => 'required|unique:users|digits_between:10,13',
+			'tipoUser' => 'required'
 		];
 	}
 

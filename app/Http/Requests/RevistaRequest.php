@@ -22,14 +22,10 @@ class RevistaRequest extends Request {
 	public function rules()
 	{
 		return [
-			'departamento' => 'required',
-			'ciudad' => 'required',
-			'universidad' => 'required',
-			'tipoRevista' => 'required',
-			'categoria' => 'required',
+			'tipoRevista' => 'required',			
 			'areas' => 'required',
-			'titulo' => 'required|between:4,50',
-			//'fechaRecepcion' => 'required',
+			'fechaRecepcion' => 'date_format:Y-m-d|after:yesterday',
+			'titulo' => 'required|between:4,50',			
 			'enlace' => 'required|url'
 		];
 	}

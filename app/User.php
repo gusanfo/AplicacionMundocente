@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password', 'areas'];
+	protected $fillable = ['name', 'email', 'password','telefono', 'areas', 'tipoUser','universidad','estado'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -34,6 +34,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public static function filterAndPaginate($name)
 	{
 		return User::name($name)
+			->where('estado', 0)
 			->orderBy('id', 'DESC')
 			->paginate(10);
 	}
@@ -44,4 +45,5 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 			$query->where("name",'LIKE',"%$name%");
 		}
 	}
+
 }

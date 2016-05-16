@@ -3,19 +3,16 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\User;
-use App\Universidad as Universidad;
 use App\Area as Area;
 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Mail;
 
 
-class AdminController extends Controller {
+class AreasController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -24,11 +21,7 @@ class AdminController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-		$universidades = Universidad::all();
-		$areas2 = \DB::table('areas')->where('tipo',null)->get();
 
-		$users = User::filterAndPaginate($request->get('name'));
-		return view('admin.index',compact('users','universidades','areas2'));
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -45,48 +38,17 @@ class AdminController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store( )//Requests\AreaRequest $request
+	public function store(Requests\AreaRequest $request)
 	{
 
+		$area = new Area();
 
-		$univ = Input::get('u');
-		if ( ! empty ($univ))
-		{
-			\DB::table('universidades')->insert(
-				['nombre' => Input::get('u') ]
-			);
-			\Session::flash('flash_message','Ha sido creada!');
-		}
-		$value =  Input::get('tipo');
-		if ( ! empty ($value))
-		{
-			\DB::table('areas')->insert(
-				['nombre' =>Input::get('tipo'), 'tipo' => Input::get('nombre') ]
-			);
-			\Session::flash('flash_message','Ha sido creada!');
-		}
-
-		/*$univ = $requestU->input('nombre');
-		if ( ! empty ($univ))
-		{
-			\DB::table('universidades')->insert(
-				['nombre' => $requestU->input('nombre') ]
-			);
-		}
-
-		$value =  $request->input('nombre');
-		if ( ! empty ($value))
-		{
-			\DB::table('areas')->insert(
-				['nombre' => $request->input('tipo'), 'tipo' => $request->input('nombre') ]
-			);
-		}
-*/
-
-
-
-
-		return redirect()->route('admin.index');
+		$area->nombre = '1111111';//$request->input('areas')
+		$area->tipo = '222222222222222222';//$request->input('tipo')
+		$area->save();
+		\DB::table('areas')->insert(
+			['nombre' => $request->input('areas'), 'tipo' => $request->input('tipo') ]
+		);
 
 	}
 	public static  function post_area(Requests\AreaRequest $request)

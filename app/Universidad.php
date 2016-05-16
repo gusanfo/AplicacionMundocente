@@ -18,8 +18,8 @@ class Universidad extends Model
      * @var array
      */
     protected $fillable = [
-        'nombre',
-        'ciudad_id'
+        'nombre'
+
     ];
 
     public static function universidades($id){

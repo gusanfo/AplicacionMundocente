@@ -8,30 +8,60 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ConvocatoriaController extends Controller {
 
-	/**
+
+	public static function getNombre($ciudad)
+	{
+		$result = \DB::table('ciudades')->where('id', $ciudad)->pluck('nombre');
+
+		return $result;
+
+	}	
+	public static function tipo_usuario()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('tipoUser');
+		return $result;
+
+	}
+/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index(Request $request)
 	{
-		$convocatorias = Convocatoria::filterAndPaginate($request->get('areas'));
+		if(self::tipo_usuario()=="Publicar"){
+			$convocatorias = Convocatoria::filterAndPaginate($request->get('type'));
+		}
+		elseif(self::tipo_usuario()=="Buscar"){
+			$convocatorias = Convocatoria::filterAndPaginate2($request->get('type'));
+		}
+
 		return view('convocatorias.index',compact('convocatorias'));
 	}
-
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
 	 */
+
+
+	public static function getconvocatoria()
+	{
+		$result = \DB::table('convocatorias')->limit(2)->orderBy('id', 'DESC')->get();
+		return $result;
+	}
+
 	public function create()
 	{
 		$departamentos = Departamento::all();
 		$areas = Area::all();
-		return view('convocatorias.create',compact('departamentos','areas'));
+		$areas2 = \DB::table('areas')->where('tipo',null)->get();
+		return view('convocatorias.create',compact('departamentos','areas','areas2'));
 
 	}
 
@@ -43,6 +73,21 @@ class ConvocatoriaController extends Controller {
 		}
 
 	}
+	public static function getId()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('id');
+		return $result;
+
+	}
+	public static function getUniverisity()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('universidad');
+		return $result;
+
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -52,10 +97,9 @@ class ConvocatoriaController extends Controller {
 	{
 
 		$convocatoria = new Convocatoria;
-
-		$convocatoria->departamento =  $request->input('departamento');
-		$convocatoria->ciudad =  $request->input('ciudad');
-		$convocatoria->universidad =  $request->input('universidad');
+		$convocatoria->user_id = self::getId();
+		$convocatoria->universidad = self::getUniverisity() ;
+		$convocatoria->ciudad =  $request->input('ciudad');	
 		$convocatoria->titulo =  $request->input('titulo');
 		$convocatoria->areas =  $request->input('areas');
 		$convocatoria->fecha_inicio =  $request->input('fecha_inicio');
@@ -66,7 +110,7 @@ class ConvocatoriaController extends Controller {
 
 		//$convocatoria = new Convocatoria;
 		//$convocatoria->create($request->all());
-
+		\Session::flash('flash_message','Ha sido creada!');
 		return redirect()->route('convocatorias.index');
 	}
 
@@ -79,9 +123,10 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function show($id)
 	{
-
+		
 	}
 
+	
 	/**
 	 * Show the form for editing the specified resource.
 	 *
@@ -90,7 +135,8 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$convocatoria = Convocatoria::findOrFail($id);
+		return view('convocatorias.edit',compact('convocatoria'));
 	}
 
 	/**
@@ -99,9 +145,20 @@ class ConvocatoriaController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,Request $request)
 	{
-		//
+		$convocatoria = Convocatoria::findOrFail($id);
+
+
+		$convocatoria->titulo =	$request->input('titulo');
+		$convocatoria->areas =	$request->input('areas');
+
+
+		$convocatoria->save();
+
+		$message = 'Ha sido modificado';
+		Session::flash('flash_message', $message);
+		return redirect()->route('convocatorias.index');
 	}
 
 	/**
@@ -112,7 +169,13 @@ class ConvocatoriaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//dd("Eliminado: ".$id);
+		Convocatoria::destroy($id);
+
+		$message = 'Fue  eliminado de nuestros registros';
+		Session::flash('flash_message', $message);
+
+		return redirect()->route('convocatorias.index');
 	}
 
 }

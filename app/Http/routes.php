@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Http\Requests;
 
 //Route::get('/', 'WelcomeController@index');
 
@@ -23,7 +24,13 @@ Route::resource('revistas','RevistaController');
 Route::resource('convocatorias','ConvocatoriaController');
 Route::resource('eventoAcademico','EventoAcademicoController');
 
+
+Route::resource('areas','AreasController');
+
 Route::resource('admin','AdminController');
+Route::resource('user','userController');
+
+
 
 Route::get('ciudades/{id}','RevistaController@getCiudades');
 //Route::get('ciudades/{id}','ConvocatoriaController@getCiudades');

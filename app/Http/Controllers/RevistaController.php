@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Revista as Revista;
-use App\Departamento as Departamento;
+
 use App\Ciudad as Ciudad;
 use App\Universidad as Universidad;
 use App\Area as Area;
@@ -9,11 +9,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 
 
 class RevistaController extends Controller {
 
-	
+
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -26,6 +29,12 @@ class RevistaController extends Controller {
 		return $result;
 
 	}
+	public static function getrevista()
+	{
+		$result = \DB::table('revistas')->limit(2)->orderBy('id', 'DESC')->get();
+		return $result;
+	}
+
 	public static function getTotal($table)
 	{
 		$result = \DB::table($table)->count();
@@ -33,11 +42,37 @@ class RevistaController extends Controller {
 
 	}
 
+	public static function getusers($table)
+	{
+		$resultado = \DB::table('users')->count();
+		return $resultado;
+	}
+	public static function tipo_usuario()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('tipoUser');
+		return $result;
+
+	}
 
 	public function index(Request $request)
 	{
-		$revistas = Revista::filterAndPaginate($request->get('areas'));
-		// $revistas = Revista::ciudad($request->get('id'));
+
+		if(self::tipo_usuario()=="Publicar"){
+			$revistas = Revista::filterAndPaginate($request->get('type'));
+		}
+		elseif(self::tipo_usuario()=="Buscar"){
+			if($request->get('type') == ''){
+				$revistas = Revista::filtradoAreasInteres();
+			}else{
+				$revistas = Revista::filterAndPaginate2($request->get('type'));
+			}
+
+
+
+
+		}
+
 		return view('revistas.index',compact('revistas'));
 	}
 
@@ -48,9 +83,11 @@ class RevistaController extends Controller {
 	 */
 	public function create()
 	{
-		$departamentos = Departamento::all();
+		$universidades = Universidad::all();
 		$areas = Area::all();
-		return view('revistas.create',compact('departamentos','areas'));
+		$areas2 = \DB::table('areas')->where('tipo',null)->get();
+
+		return view('revistas.create',compact('universidades','areas','areas2'));
 
 	}
 	public function getCiudades(Request $request,$id)
@@ -61,13 +98,26 @@ class RevistaController extends Controller {
 		}
 
 	}
-
-	public function getUniversidades(Request $request,$id)
+	public static function getType()
 	{
-		if($request->ajax() ){
-			$universidades = Universidad::universidades($id);
-			return response()->json($universidades);
-		}
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('tipoUser');
+		return $result;
+
+	}
+
+	public static function getId()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('id');
+		return $result;
+
+	}
+	public static function getUniverisity()
+	{
+		$value = Session::get('email');
+		$result = \DB::table('users')->where('email',$value )->pluck('universidad');
+		return $result;
 
 	}
 	/**
@@ -78,10 +128,18 @@ class RevistaController extends Controller {
 	public function store(Requests\RevistaRequest $request)
 	{
 
+		\DB::table('areas')->insert(
+			['nombre' => 'mm', 'tipo' =>'kk' ]
+		);
+
+		$value = 'Ingeniería Software';//Redes y telecomunicaciones
+		//$emails = \DB::table('users')->where('areas','LIKE',$value )->orWhere('notificar','1')->lists('email');
+
+		//dd($emails);
+
 		$revista = new Revista;
-		$revista->departamento =  $request->input('departamento');
-		$revista->ciudad =  $request->input('ciudad');
-		$revista->universidad =  $request->input('universidad');
+		$revista->user_id = self::getId();
+		$revista->universidad = self::getUniverisity();
 		$revista->titulo =  $request->input('titulo');
 		$revista->tipoRevista = $request->input('tipoRevista');
 		$revista->categoria =  $request->input('categoria');
@@ -89,12 +147,28 @@ class RevistaController extends Controller {
 		$revista->enlace = $request->input('enlace');
 		$revista->areas =  implode(",",$request->input('areas'));
 		$revista->save();
-		//return Redirect::to('users')->with('notice', 'El usuario ha sido creado correctamente.');
 
+/*		$partes = explode(",", $request->input('areas'));
+		for ($i = 0;$i <= count($partes) ; $i++) {
+			$emails = \DB::table('users')->where('areas','LIKE',$partes[$i])->where('notificar','1')->lists('email');
 
-		//	$revista = new Revista;
-		//	$revista->create($request->all());
-		
+		}
+*/
+		$emails = \DB::table('users')->where('areas','LIKE',$request->input('areas'))->where('notificar','1')->lists('email');
+
+		//dd($emails);
+
+		$data = array();
+
+		Mail::send('emails.notificacion', $data, function ($message) use ($emails)
+		{
+			foreach ($emails as $email){
+
+				$message->to($email)->subject('Revista en las areas de Interes');
+			}
+		});
+
+		\Session::flash('flash_message','Ha sido creada!');
    		return redirect()->route('revistas.index');
 	}
 
@@ -109,7 +183,7 @@ class RevistaController extends Controller {
 		//
 	}
 
-	/**
+/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -117,7 +191,8 @@ class RevistaController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$revista = Revista::findOrFail($id);
+		return view('revistas.edit',compact('revista'));
 	}
 
 	/**
@@ -126,9 +201,20 @@ class RevistaController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,Request $request)
 	{
-		//
+		$revista = Revista::findOrFail($id);
+
+
+		$revista->titulo =	$request->input('titulo');
+		$revista->areas =	$request->input('areas');
+
+
+		$revista->save();
+
+		$message = 'Ha sido modificado';
+		Session::flash('flash_message', $message);
+		return redirect()->route('revistas.index');
 	}
 
 	/**
@@ -139,7 +225,13 @@ class RevistaController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		//dd("Eliminado: ".$id);
+		Revista::destroy($id);
+
+		$message = 'Fue  eliminado de nuestros registros';
+		Session::flash('flash_message', $message);
+
+		return redirect()->route('revistas.index');
 	}
 
 }

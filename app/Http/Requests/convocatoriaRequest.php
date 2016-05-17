@@ -22,11 +22,10 @@ class convocatoriaRequest extends Request {
 	public function rules()
 	{
 		return [
-			'departamento' => 'required',
 			'ciudad' => 'required',
-			'universidad' => 'required',
-			'fecha_inicio' => 'required|date',
-			'fecha_finalizacion' => 'required|date',
+			//'universidad' => 'required',
+			'fecha_inicio' => 'required|date_format:Y-m-d|after:yesterday',
+			'fecha_finalizacion' => 'required|date_format:Y-m-d|after:yesterday',
 			'areas' => 'required',
 			'titulo' => 'required',
 			'enlace' => 'required|url'
